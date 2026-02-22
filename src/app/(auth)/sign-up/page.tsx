@@ -49,7 +49,7 @@ export default function SignUpPage() {
         last_name,
         password: data.password,
       });
-      router.push("/sign-in?registered=true");
+      router.push(`/verify-account?email=${encodeURIComponent(data.email)}`);
     } catch (err: unknown) {
       const axiosErr = err as { response?: { data?: { message?: string } } };
       setError(

@@ -29,6 +29,13 @@ export const authService = {
     await apiClient.post<ApiResponse<unknown>>("/register", data);
   },
 
+  async verifyAccount(data: {
+    email: string;
+    token: string;
+  }): Promise<void> {
+    await apiClient.post<ApiResponse<unknown>>("/activate-account", data);
+  },
+
   async logout(email: string): Promise<void> {
     try {
       await apiClient.post("/logout", { email });
