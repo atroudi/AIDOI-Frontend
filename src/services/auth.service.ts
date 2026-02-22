@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 
 export const authService = {
   async login(data: LoginRequest): Promise<{ user: User; token: string }> {
-    const response = await apiClient.post<ApiResponse<LoginResponse>>(
+    const response = await apiClient.post<LoginResponse>(
       "/login",
       data
     );
@@ -22,7 +22,7 @@ export const authService = {
       Cookies.set("aidoi_token", token, { expires: 7 });
       localStorage.setItem("aidoi_token", token);
     }
-    return { user: response.data.data.user, token };
+    return { user: response.data.user, token };
   },
 
   async register(data: RegisterRequest): Promise<void> {
