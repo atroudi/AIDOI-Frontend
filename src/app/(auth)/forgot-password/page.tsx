@@ -46,17 +46,17 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+      <div className="text-center">
+        <h1 className="text-3xl font-semibold text-gray-900 mb-4 text-center">
           Check Your Email
         </h1>
-        <p className="text-gray-600 mb-6">
+        <p className="text-gray-600 mb-6 text-center">
           If an account with that email exists, we&apos;ve sent a password reset
           token. Check your inbox and use it to reset your password.
         </p>
         <Link
           href="/reset-password"
-          className="text-primary hover:text-primary-hover font-medium"
+          className="text-primary hover:text-primary-hover font-medium block"
         >
           Enter Reset Token →
         </Link>
@@ -66,10 +66,10 @@ export default function ForgotPasswordPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">
+      <h1 className="text-3xl font-semibold text-gray-900 mb-2 text-center">
         Forgot Password
       </h1>
-      <p className="text-gray-500 mb-8">
+      <p className="text-gray-500 mb-8 text-center">
         Enter your email and we&apos;ll send you a reset token.
       </p>
 

@@ -51,7 +51,7 @@ export default function SignInPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">
+      <h1 className="text-3xl font-semibold text-gray-900 mb-8 text-center">
         Log In to AIDOI Portal
       </h1>
 
@@ -80,7 +80,7 @@ export default function SignInPage() {
             error={errors.password?.message}
             {...register("password")}
           />
-          <div className="mt-1.5 text-right">
+          <div className="mt-1.5 text-center">
             <Link
               href="/forgot-password"
               className="text-sm text-primary hover:text-primary-hover transition-colors"

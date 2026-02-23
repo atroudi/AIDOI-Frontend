@@ -16,10 +16,10 @@ export default function AuthLayout({
           className="object-cover"
           priority
         />
-        <div className="relative z-10 flex flex-col justify-between w-full p-10">
+        <div className="relative z-10 flex flex-col justify-between w-full p-5">
           {/* Logo */}
           <div>
-            <h2 className="text-white text-xl">
+            <h2 className="text-white text-2xl">
               <span className="font-bold">AIDOI</span>{" "}
               <span className="font-light">Portal</span>
             </h2>
@@ -27,10 +27,10 @@ export default function AuthLayout({
 
           {/* Center text */}
           <div className="flex flex-col items-center text-center">
-            <h1 className="text-white text-7xl font-bold tracking-tight mb-6">
+            <h1 className="text-white text-9xl font-bold tracking-tight mb-2">
               AIDOI
             </h1>
-            <p className="text-white/90 text-lg max-w-md leading-relaxed">
+            <p className="text-white/90 text-2xl max-w-md leading-relaxed">
               The Global Registry for AI Digital Objects.
               <br />
               Secure your AI assets today.

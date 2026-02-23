@@ -39,8 +39,8 @@ export function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-60 bg-navy flex flex-col">
       {/* Brand */}
-      <div className="px-6 py-6">
-        <Link href="/dashboard" className="text-white text-xl">
+      <div className="px-6 py-6 flex items-center justify-center">
+        <Link href="/dashboard" className="text-white text-xl text-center">
           <span className="font-bold">AIDOI</span>{" "}
           <span className="font-light">Portal</span>
         </Link>
