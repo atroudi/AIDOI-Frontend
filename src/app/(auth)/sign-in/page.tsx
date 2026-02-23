@@ -38,7 +38,7 @@ export default function SignInPage() {
     try {
       const { user, token } = await authService.login(data);
       setAuth(user, token);
-      router.push("/dashboard");
+      router.push(user.role?.admin ? "/admin" : "/dashboard");
     } catch (err: unknown) {
       const axiosErr = err as { response?: { data?: { message?: string } } };
       setError(

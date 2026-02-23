@@ -31,9 +31,10 @@ export function middleware(request: NextRequest) {
 
   // Allow public paths
   if (publicPaths.some((p) => pathname.startsWith(p))) {
-    // If authenticated, redirect to dashboard
+    // If authenticated, redirect to appropriate home
     if (token) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      const dest = isAdminFromToken(token) ? "/admin" : "/dashboard";
+      return NextResponse.redirect(new URL(dest, request.url));
     }
     return NextResponse.next();
   }
