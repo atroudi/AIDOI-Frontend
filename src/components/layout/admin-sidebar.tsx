@@ -6,73 +6,71 @@ import { cn } from "@/lib/utils";
 import {
   LayoutGrid,
   Building2,
-  Link2,
-  Settings,
-  Shield,
+  Clock,
+  Users,
+  UserCog,
+  BarChart3,
+  ArrowLeft,
 } from "lucide-react";
-import { useAuthStore } from "@/store/auth-store";
 
 const navItems = [
   {
-    label: "Dashboard",
-    href: "/dashboard",
+    label: "Overview",
+    href: "/admin",
     icon: LayoutGrid,
+    exact: true,
   },
   {
-    label: "My Institutions",
-    href: "/institutions",
+    label: "Organizations",
+    href: "/admin/organizations",
     icon: Building2,
   },
   {
-    label: "Manage AIDOIs",
-    href: "/aidois",
-    icon: Link2,
+    label: "Pending Requests",
+    href: "/admin/pending",
+    icon: Clock,
   },
   {
-    label: "Profile Settings",
-    href: "/profile",
-    icon: Settings,
+    label: "Users",
+    href: "/admin/users",
+    icon: Users,
+  },
+  {
+    label: "Org Admins",
+    href: "/admin/org-admins",
+    icon: UserCog,
+  },
+  {
+    label: "Stats",
+    href: "/admin/stats",
+    icon: BarChart3,
   },
 ];
 
-export function Sidebar() {
+export function AdminSidebar() {
   const pathname = usePathname();
-  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-60 bg-navy flex flex-col">
       {/* Brand */}
-      <div className="px-6 py-6 flex items-center justify-center">
-        <Link href="/dashboard" className="text-white text-xl text-center">
+      <div className="px-6 py-6 flex flex-col items-center gap-1">
+        <Link href="/admin" className="text-white text-xl text-center">
           <span className="font-bold">AIDOI</span>{" "}
           <span className="font-light">Portal</span>
         </Link>
+        <span className="text-xs text-red-400 font-semibold tracking-wider uppercase">
+          Admin Panel
+        </span>
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 px-3 mt-2">
         <ul className="space-y-1">
-          {isAdmin && (
-            <li>
-              <Link
-                href="/admin"
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors",
-                  pathname.startsWith("/admin")
-                    ? "bg-red-600/20 text-white"
-                    : "text-red-300 hover:text-white hover:bg-red-600/10"
-                )}
-              >
-                <Shield className="h-5 w-5 shrink-0" />
-                Admin Panel
-              </Link>
-            </li>
-          )}
           {navItems.map((item) => {
-            const isActive =
-              pathname === item.href ||
-              (item.href !== "/dashboard" &&
-                pathname.startsWith(item.href));
+            const isActive = item.exact
+              ? pathname === item.href
+              : pathname === item.href ||
+                pathname.startsWith(item.href + "/");
 
             return (
               <li key={item.href}>
@@ -93,6 +91,17 @@ export function Sidebar() {
           })}
         </ul>
       </nav>
+
+      {/* Back to Portal */}
+      <div className="px-3 pb-6">
+        <Link
+          href="/dashboard"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-white/50 hover:text-white hover:bg-navy-light/50 transition-colors"
+        >
+          <ArrowLeft className="h-5 w-5 shrink-0" />
+          Back to Portal
+        </Link>
+      </div>
     </aside>
   );
 }

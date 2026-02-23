@@ -4,3 +4,4 @@ export * from "./organization";
 export * from "./aidoi";
 export * from "./api-key";
 export * from "./profile";
+export * from "./admin";
