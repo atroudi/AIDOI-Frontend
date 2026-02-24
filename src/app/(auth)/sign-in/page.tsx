@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/auth-store";
 import { authService } from "@/services";
+import { decodeJwtPayload, isAdminRole } from "@/lib/utils";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -38,7 +39,9 @@ export default function SignInPage() {
     try {
       const { user, token } = await authService.login(data);
       setAuth(user, token);
-      router.push(user.role?.admin ? "/admin" : "/dashboard");
+      const payload = token ? decodeJwtPayload(token) : null;
+      const isAdmin = payload ? isAdminRole(payload.user_role) : false;
+      router.push(isAdmin ? "/admin" : "/dashboard");
     } catch (err: unknown) {
       const axiosErr = err as { response?: { data?: { message?: string } } };
       setError(
