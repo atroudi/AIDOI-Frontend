@@ -16,3 +16,9 @@ db.users.insertOne({
   created_at: new Date()
 });
 '
+
+
+# Test login Backend api
+curl -s -i -X POST http://localhost:3000/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "your@email.com", "password": "yourpassword"}'

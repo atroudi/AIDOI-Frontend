@@ -2,19 +2,22 @@
 
 export type AidoiStatus = "active" | "inactive" | "deleted";
 
+// Backend uses #[serde(rename_all = "lowercase")] — all values must be lowercase
 export type AidoiResourceType =
-  | "Dataset"
-  | "JournalArticle"
-  | "Software"
-  | "Report"
-  | "Image"
-  | "Audio"
-  | "Video"
-  | "Other";
+  | "dataset"
+  | "journalarticle"
+  | "software"
+  | "report"
+  | "image"
+  | "audio"
+  | "video";
 
-export type ResearchStage = "A" | "B" | "C" | "D";
-export type YesPartialNo = "Yes" | "Partial" | "No";
-export type FullyPartialNot = "Fully" | "Partial" | "Not";
+// Backend: A=5pts, B=3pts, C=1pt, D=0pt
+export type ResearchStage = "a" | "b" | "c" | "d";
+// Backend: yes=5pts, partial=3pts, no=0pts
+export type YesPartialNo = "yes" | "partial" | "no";
+// Backend: fully=5pts, partial=3pts, not=0pts
+export type FullyPartialNot = "fully" | "partial" | "not";
 
 export interface AidoiAuthor {
   first_name: string;
@@ -24,63 +27,78 @@ export interface AidoiAuthor {
   orcid?: string;
 }
 
+// Field names match backend AIDOIMetadata struct exactly
 export interface AidoiMetadata {
-  creators?: AidoiAuthor[];
-  title?: string;
-  publisher?: string;
-  publication_year?: number;
-  resource_type?: AidoiResourceType;
+  // Basic metadata
+  creators: AidoiAuthor[];
+  title: string;
+  publisher: string;
+  publication_year: number;
+  resource_type: AidoiResourceType;
   description?: string;
   license?: string;
-  ai_model?: string;
+  ai_model: string;
 
-  // Section B — Research Stages
-  hypothesis_stage?: ResearchStage;
-  hypothesis_description?: string;
-  literature_stage?: ResearchStage;
-  literature_description?: string;
-  design_stage?: ResearchStage;
-  design_description?: string;
-  data_generation_stage?: ResearchStage;
-  data_generation_description?: string;
-  data_analysis_stage?: ResearchStage;
-  data_analysis_description?: string;
-  writing_stage?: ResearchStage;
-  writing_description?: string;
-  figures_stage?: ResearchStage;
-  figures_description?: string;
-  references_stage?: ResearchStage;
-  references_description?: string;
+  // Section B — Research Stages (8 stages)
+  stage_hypothesis: ResearchStage;
+  stage_hypothesis_description: string;
+  stage_literature: ResearchStage;
+  stage_literature_description: string;
+  stage_design: ResearchStage;
+  stage_design_description: string;
+  stage_data_generation: ResearchStage;
+  stage_data_generation_description: string;
+  stage_data_analysis: ResearchStage;
+  stage_data_analysis_description: string;
+  stage_writing: ResearchStage;
+  stage_writing_description: string;
+  stage_figures: ResearchStage;
+  stage_figures_description: string;
+  stage_references: ResearchStage;
+  stage_references_description: string;
 
-  // Section C — Provenance
-  text_generated?: YesPartialNo;
-  figures_created?: YesPartialNo;
-  log_available?: YesPartialNo;
-  review_assisted?: YesPartialNo;
+  // Section C — Provenance & Transparency (20 pts)
+  provenance_text_generated: YesPartialNo;
+  provenance_text_generated_description: string;
+  provenance_figures_created: YesPartialNo;
+  provenance_figures_created_description: string;
+  provenance_log_available: YesPartialNo;
+  provenance_log_available_description: string;
+  provenance_review_assisted: YesPartialNo;
+  provenance_review_assisted_description: string;
 
-  // Section D — Limitations
-  errors_documented?: FullyPartialNot;
-  ethical_corrections?: FullyPartialNot;
-  misinterpretations?: FullyPartialNot;
+  // Section D — AI Limitations & Human Oversight (15 pts)
+  limitations_errors_documented: FullyPartialNot;
+  limitations_errors_documented_description: string;
+  limitations_ethical_corrections: FullyPartialNot;
+  limitations_ethical_corrections_description: string;
+  limitations_misinterpretations: FullyPartialNot;
+  limitations_misinterpretations_description: string;
 
-  // Section E — Reproducibility
-  metadata_available?: YesPartialNo;
-  datasets?: YesPartialNo;
-  ethics?: YesPartialNo;
+  // Section E — Reproducibility & Ethical Compliance (15 pts)
+  reproducibility_metadata: YesPartialNo;
+  reproducibility_metadata_description: string;
+  reproducibility_datasets: YesPartialNo;
+  reproducibility_datasets_description: string;
+  reproducibility_ethics: YesPartialNo;
+  reproducibility_ethics_description: string;
 
-  // Section F — Originality
-  no_copied_material?: YesPartialNo;
-  authorship_declaration?: YesPartialNo;
-  novelty_introduced?: YesPartialNo;
+  // Section F — Overall Originality & Compliance (15 pts)
+  originality_no_copied_material: YesPartialNo;
+  originality_no_copied_material_description: string;
+  originality_authorship_declaration: YesPartialNo;
+  originality_authorship_declaration_description: string;
+  originality_novelty_introduced: YesPartialNo;
+  originality_novelty_introduced_description: string;
 
-  // Scores
-  score_section_b?: number;
-  score_section_c?: number;
-  score_section_d?: number;
-  score_section_e?: number;
-  score_section_f?: number;
-  total_score?: number;
-  is_eligible?: boolean;
+  // Calculated scores
+  score_section_b: number;
+  score_section_c: number;
+  score_section_d: number;
+  score_section_e: number;
+  score_section_f: number;
+  total_score: number;
+  is_eligible: boolean;
 }
 
 export interface Aidoi {
@@ -114,16 +132,15 @@ export interface UpdateAidoiDto {
   id: string;
   suffix?: string;
   target_url?: string;
-  metadata?: AidoiMetadata;
+  metadata?: Partial<AidoiMetadata>;
 }
 
 export const RESOURCE_TYPE_LABELS: Record<AidoiResourceType, string> = {
-  Dataset: "Dataset",
-  JournalArticle: "Paper",
-  Software: "Model / Codebase",
-  Report: "Report",
-  Image: "Image",
-  Audio: "Audio",
-  Video: "Video",
-  Other: "Other",
+  dataset: "Dataset",
+  journalarticle: "Paper / Journal Article",
+  software: "Model / Codebase",
+  report: "Report",
+  image: "Image",
+  audio: "Audio",
+  video: "Video",
 };

@@ -115,14 +115,13 @@ export default function AdminStatsPage() {
     .slice(0, 5);
 
   const resourceTypeIcons: Record<string, React.ReactNode> = {
-    Dataset: <Package className="h-4 w-4" />,
-    JournalArticle: <FileText className="h-4 w-4" />,
-    Software: <Code className="h-4 w-4" />,
-    Report: <FileText className="h-4 w-4" />,
-    Image: <Image className="h-4 w-4" />,
-    Audio: <Music className="h-4 w-4" />,
-    Video: <Video className="h-4 w-4" />,
-    Other: <Link2 className="h-4 w-4" />,
+    dataset: <Package className="h-4 w-4" />,
+    journalarticle: <FileText className="h-4 w-4" />,
+    software: <Code className="h-4 w-4" />,
+    report: <FileText className="h-4 w-4" />,
+    image: <Image className="h-4 w-4" />,
+    audio: <Music className="h-4 w-4" />,
+    video: <Video className="h-4 w-4" />,
   };
 
   return (

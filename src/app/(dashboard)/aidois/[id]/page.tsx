@@ -28,14 +28,13 @@ const updateSchema = z.object({
 type UpdateFormValues = z.infer<typeof updateSchema>;
 
 const resourceTypeOptions = [
-  { value: "Software", label: "Model / Codebase" },
-  { value: "Dataset", label: "Dataset" },
-  { value: "JournalArticle", label: "Paper" },
-  { value: "Report", label: "Report" },
-  { value: "Image", label: "Image" },
-  { value: "Audio", label: "Audio" },
-  { value: "Video", label: "Video" },
-  { value: "Other", label: "Other" },
+  { value: "software", label: "Model / Codebase" },
+  { value: "dataset", label: "Dataset" },
+  { value: "journalarticle", label: "Paper / Journal Article" },
+  { value: "report", label: "Report" },
+  { value: "image", label: "Image" },
+  { value: "audio", label: "Audio" },
+  { value: "video", label: "Video" },
 ];
 
 export default function AidoiDetailPage() {
